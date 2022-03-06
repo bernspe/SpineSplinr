@@ -1,0 +1,143 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - .env
+    networks:
+      - backend
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  db-admin:
+    restart: always
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    networks:
+      - backend
+
+  spinesplinr-api:
+    image: spinesplinr-api:${APP_VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    ports:
+      - "8002:8002"
+    volumes:
+      - media:/code/media
+      - static:/code/static
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis
+    #Use for remote deploy
+    # --threads=4 --worker-class=gthread --worker-tmp-dir /dev/shm
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py && gunicorn --workers=4 --bind 0.0.0.0:8002 --keyfile nginx/cert/star_skoliosekinder_de.key --certfile nginx/cert/cert_skoliosekinder.de.txt SpineSplinr.wsgi:application"
+
+    #command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
+    restart: always
+    networks:
+      - backend
+    env_file:
+      - .env
+    environment:
+#      - APP_ENV=development
+# This is for remote deploy
+      - APP_ENV=production
+
+  spinesplinr-websocket:
+    image: spinesplinr-websocket:${APP_VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile-websocket
+    ports:
+      - "8004:8004"
+    volumes:
+      - media:/code/media
+      - static:/code/static
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis
+    command: bash -c "daphne -e ssl:8004:privateKey=nginx/cert/star_skoliosekinder_de.key:certKey=nginx/cert/cert_skoliosekinder.de.txt SpineSplinr.asgi:application"
+    restart: always
+    networks:
+      - backend
+    env_file:
+      - .env
+    environment:
+#      - APP_ENV=development
+# This is for remote deploy
+      - APP_ENV=production
+
+
+  redis:
+    env_file:
+      - .env
+    image: redis
+    volumes:
+      - redis:/data
+    networks:
+      - backend
+
+  worker:
+    image: spinesplinr-api:${APP_VERSION}
+    command: celery -A SpineSplinr worker -B -l WARNING --scheduler django_celery_beat.schedulers:DatabaseScheduler -E
+    user: nobody
+    depends_on:
+      - redis
+      - db
+      - spinesplinr-api
+      - spinesplinr-websocket
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=production
+    networks:
+      - backend
+    volumes:
+      - media:/code/media
+    restart: always
+
+  flower:
+    image: spinesplinr-api:${APP_VERSION}
+    command: celery -A SpineSplinr flower
+    depends_on:
+      - redis
+      - db
+      - worker
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=production
+    ports:
+      - 5555:5555
+    networks:
+      - backend
+    volumes:
+      - redis:/data
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  media:
+  redis:
+  static:

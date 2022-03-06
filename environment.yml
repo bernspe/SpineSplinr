@@ -1,0 +1,30 @@
+name: SpineSplinrV3
+dependencies:
+  - python=3.9.1
+  - pip
+  - numpy
+  - pandas
+  - asgiref
+  - Django
+  - djangorestframework
+  - Pillow
+  - psycopg2
+  - requests
+  - scikit-image
+  - scipy
+  - tornado
+  - whitenoise
+  - celery
+  - redis
+  - django-guardian
+  - django-cors-headers
+  - channels
+  - Twisted[tls,http2]
+  - uritemplate
+  - django-braces
+  - yagmail
+  - pip:
+      - django-oauth-toolkit
+      - channels_redis
+      - environs
+      - sentry-sdk
