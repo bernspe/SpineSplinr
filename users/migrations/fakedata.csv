@@ -1,8 +1,0 @@
-﻿email;first_name;last_name;date_of_birth;sex;username;role;password
-patient1@home.de;Sven;Hacker;02.03.04;m;hacker;Patient;hackerpassword
-patient2@home.de;Larissa;Gutlein;03.04.06;w;gutlein;Patient;gutleinpassword
-eltern1@home.de;Marion;Hacker;04.04.84;w;hackerelter;Caregiver Patient;hackerpassword
-eltern2@home.de;Thomas;Gutlein;23.04.77;m;gutleinelter;Caregiver Patient;gutleinpassword
-guest@home.de;Maria;Unschuldig;03.06.08;w;unschuldig;Guest;guestpassword
-physician@home.de;Torsten;Chirurg;12.04.66;m;chirurg;Physician;chirurgpassword
-specialist@home.de;Anne;Spezialistin;03.05.70;w;spezialist;Specialist;spezialistpassword
