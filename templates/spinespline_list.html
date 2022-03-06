@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Spine - Splines</title>
+</head>
+<body>
+<h1>Spine - Splines</h1>
+
+{% load rest_framework %}
+<ul>
+    {% for spline in spinesplines %}
+    <li>{{ spline.title }}</li>
+    {% endfor %}
+</ul>
+
+<form class="form-horizontal" method ="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {% render_form serializer %}
+</form>
+</body>
+</html>

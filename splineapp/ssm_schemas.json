@@ -1,0 +1,197 @@
+{
+  "process_bendforward" : {
+      "fields":
+            [
+              ["created","date","Datum"],
+              ["Humpangle_mean","number","Rippenbuckel"],
+              ["Humpangle_min","number","Min Rippenbuckel",{"role": "interval"}],
+              ["Humpangle_max","number","Max Rippenbuckel",{"role": "interval"}]
+            ],
+    "chartoptions": {
+      "title": "Rippenbuckel",
+      "legend": { "position": "bottom" },
+      "intervals": { "style":"area" },
+      "curveType": "function"
+    }
+  },
+  "process_upright-Diagram1": {
+    "fields": [
+      [
+        "created",
+        "date",
+        "Datum"
+      ],
+      [
+        "FrechetDistances_mean",
+        "number",
+        "Frechet Asymmetrie"
+      ],
+      [
+        "FrechetDistances_min",
+        "number",
+        "Min Frechet Asymmetrie",{"role": "interval"}
+      ],
+      [
+        "FrechetDistances_max",
+        "number",
+        "Max Frechet Asymmetrie",{"role": "interval"}
+      ],
+      [
+        "SquaredDistances_mean",
+        "number",
+        "SqDist Asymmetrie"
+      ],
+      [
+        "SquaredDistances_min",
+        "number",
+        "Min SqDist Asymmetrie",{"role": "interval"}
+      ],
+      [
+        "SquaredDistances_max",
+        "number",
+        "Max SqDist Asymmetrie",{"role": "interval"}
+      ]
+    ],
+    "chartoptions": {
+      "title": "Taillenasymmetrie",
+      "legend": { "position": "bottom" },
+      "series": {
+          "0": {"targetAxisIndex": 0},
+          "1": {"targetAxisIndex": 1}
+
+        },
+      "vAxes": {
+          "0": {"title": "Frechet"},
+          "1": {"title": "SqDist"}
+
+        },
+      "intervals": { "style":"area" },
+      "curveType": "function"
+    }
+  },
+  "process_upright-Diagram2": {
+    "fields": [
+      [
+        "created",
+        "date",
+        "Datum"
+      ],
+      [
+        "ShoulderHeightDifference_mean",
+        "number",
+        "Axillahöhe Asymmetrie"
+      ],
+      [
+        "ShoulderHeightDifference_min",
+        "number",
+        "Min Axillahöhe Asymmetrie",{"role": "interval"}
+      ],
+      [
+        "ShoulderHeightDifference_max",
+        "number",
+        "Max Axillahöhe Asymmetrie",{"role": "interval"}
+      ]
+    ],
+    "chartoptions": {
+      "title": "Axillaasymmetrie",
+      "legend": { "position": "bottom" },
+      "intervals": { "style":"area" },
+      "curveType": "function"
+    }
+  },
+
+
+  "process_xray_cobb-Diagram1": {
+    "fields": [
+      [
+        "created",
+        "date",
+        "Datum"
+      ],
+      [
+        "SPLINEAngleTh_mean",
+        "number",
+        "Thorakaler Spline-Winkel"
+      ],
+      [
+        "SPLINEAngleTh_min",
+        "number",
+        "Min Thorakaler Spline-Winkel",{"role": "interval"}
+      ],
+      [
+        "SPLINEAngleTh_max",
+        "number",
+        "Max Thorakaler Spline-Winkel",{"role": "interval"}
+      ],
+      [
+        "SPLINEAngleLu_mean",
+        "number",
+        "Lumbaler Spline-Winkel"
+      ],
+      [
+        "SPLINEAngleLu_min",
+        "number",
+        "Min Lumbaler Spline-Winkel",{"role": "interval"}
+      ],
+      [
+        "SPLINEAngleLu_max",
+        "number",
+        "Max Lumbaler Spline-Winkel",{"role": "interval"}
+      ]
+    ],
+    "chartoptions": {
+      "title": "Spline-Winkel",
+      "legend": { "position": "bottom" },
+      "interpolateNulls": true,
+      "intervals": { "style":"area" },
+      "curveType": "function"
+    }
+  },
+
+  "process_xray_cobb-Diagram2": {
+    "fields": [
+      [
+        "created",
+        "date",
+        "Datum"
+      ],
+      [
+        "COBBAngleTh_mean",
+        "number",
+        "Thorakaler Cobb-Winkel"
+      ],
+      [
+        "COBBAngleTh_min",
+        "number",
+        "Min Thorakaler Cobb-Winkel",{"role": "interval"}
+      ],
+      [
+        "COBBAngleTh_max",
+        "number",
+        "Max Thorakaler Cobb-Winkel",{"role": "interval"}
+      ],
+      [
+        "COBBAngleLu_mean",
+        "number",
+        "Lumbaler Cobb-Winkel"
+      ],
+      [
+        "COBBAngleLu_min",
+        "number",
+        "Min Lumbaler Cobb-Winkel",{"role": "interval"}
+      ],
+      [
+        "COBBAngleLu_max",
+        "number",
+        "Max Lumbaler Cobb-Winkel",{"role": "interval"}
+      ]
+    ],
+    "chartoptions": {
+      "title": "Cobb-Winkel",
+      "legend": { "position": "bottom" },
+      "interpolateNulls": true,
+      "intervals": { "style":"area" },
+      "curveType": "function"
+    }
+  }
+}
